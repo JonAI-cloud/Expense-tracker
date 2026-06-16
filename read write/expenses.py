@@ -11,6 +11,7 @@ console = Console()
 expenses = []
 
 def get_total(expenses):
+    """Calculate and return the total amount across all expenses"""
     total = 0
     for expense in expenses:
         total = total + expense["amount"]
