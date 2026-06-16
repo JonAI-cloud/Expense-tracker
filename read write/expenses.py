@@ -3,6 +3,9 @@ from rich.table import Table
 from rich.console import Console
 from datetime import date
 
+#Expense Tracker - command line app to log and manage daily expenses
+#Built during week 1 of the engineering learning program
+
 console = Console()
 
 expenses = []
