@@ -18,6 +18,7 @@ def get_total(expenses):
     return total
 
 def add_expense(name, amount, category="general"):
+    """Adding expenses to the list expenses"""
     return {"name": name, 
             "amount": amount, 
             "category": category,
@@ -25,6 +26,7 @@ def add_expense(name, amount, category="general"):
     }
 
 def get_category(amount):
+    """categorises expenses by their size in 3 categories"""
     if amount < 10:
         return "small"
     elif amount <= 50:
@@ -33,6 +35,7 @@ def get_category(amount):
         return "large"
 
 def print_expenses(expenses):
+    """formating the table with rich, then displaying them in the terminal"""
     table = Table(title="Expenses")
     table.add_column("Date", style="yellow")
     table.add_column("Name", style="cyan")
@@ -51,6 +54,7 @@ def print_expenses(expenses):
     console.print(table)
 
 def save_expenses(expenses, filename="expenses.csv"):
+    """saves the expense in the external file"""
     with open(filename, "w", newline="") as f:
         fieldnames = ["name", "amount", "category", "date"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -58,6 +62,7 @@ def save_expenses(expenses, filename="expenses.csv"):
         writer.writerows(expenses) # writes every dict as a row
 
 def load_expenses(filename="expenses.csv"):
+    """reads the external file"""
     try:
         with open(filename, "r") as f:
             reader = csv.DictReader(f)
@@ -74,6 +79,7 @@ def load_expenses(filename="expenses.csv"):
         return[] # no file yet, return empty list
 
 def add_expense_prompt(expenses):
+    """allows user to input an expense"""
     name = input("Expense name: ")
     try:
         amount = float(input("Amount (kr): "))
@@ -84,6 +90,7 @@ def add_expense_prompt(expenses):
     print(f"Added {name} for {amount} kr")
 
 def print_summary(expenses):
+    """gives user the option to view summary of the expenses"""
     if not expenses:
         print("No expenses yet.")
         return
@@ -94,6 +101,7 @@ def print_summary(expenses):
 
 
 def delete_expense(expenses):
+    """gives option to remove expenses"""
     name = input("Enter the name of the expense to delete: ")
     for expense in expenses:
         if expense["name"].lower() == name.lower():
@@ -104,6 +112,7 @@ def delete_expense(expenses):
 
 
 def print_expenses_sorted(expenses):
+    """allows user to see the list sorted by size from largest to smallest"""
     if not expenses:
         print("No expenses yet.")
         return
@@ -111,6 +120,7 @@ def print_expenses_sorted(expenses):
     print_expenses(sorted_list)
 
 def print_expenses_by_category(expenses):
+    """allows user to view all expenses in a specific category"""
     category = input("Enter category (small / medium / large): ").lower()
 
     if category not in ["small", "medium", "large"]:
@@ -127,10 +137,12 @@ def print_expenses_by_category(expenses):
 
 
 def save_budget(budget, filename="budget.txt"):
+    """saves the expenses in the external file"""
     with open(filename, "w") as f:
         f.write(str(budget))
 
 def load_budget(filename="budget.txt"):
+    """imports the infomration about the budget from teh external file"""
     try:
         with open(filename, "r") as f:
             return float(f.read())
@@ -138,6 +150,7 @@ def load_budget(filename="budget.txt"):
         return None #No budget set yet
     
 def check_budget(expenses, budget):
+    """Checks if budget is reached and how much of it is used"""
     if budget is None:
         return
     total = get_total(expenses)
@@ -152,6 +165,7 @@ def check_budget(expenses, budget):
 
 
 def set_budget_prompt():
+    """gives user the prompt to set a budget"""
     try:
         budget = float(input("Enter monthly budget (kr): "))
         save_budget(budget)
@@ -162,6 +176,7 @@ def set_budget_prompt():
         return None
 
 def main():
+    """the programs main function"""
     expenses = load_expenses() #load from file at startup
     budget = load_budget()
 
