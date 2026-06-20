@@ -176,7 +176,7 @@ def set_budget_prompt():
         return None
 
 def main():
-    """the programs main function"""
+    """the programs main function."""
     expenses = load_expenses() #load from file at startup
     budget = load_budget()
 
